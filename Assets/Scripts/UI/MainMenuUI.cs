@@ -13,6 +13,11 @@ public class MainMenuUI : MonoBehaviour
         SceneManager.LoadScene("HighScores");
     }
 
+    public void GoToCredits()
+    {
+        SceneManager.LoadScene("Credits");
+    }
+
     public void QuitGame()
     {
         Application.Quit();

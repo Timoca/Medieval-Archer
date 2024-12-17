@@ -10,6 +10,7 @@ public class MonsterSpawner : MonoBehaviour
     public LayerMask wallLayer;                 // LayerMask voor muren
 
     private Transform playerTransform;
+    private Player player;
     private Camera mainCamera;
     private int currentWaveIndex = 0;
     public int currentMonsterCount = 0;
@@ -19,16 +20,8 @@ public class MonsterSpawner : MonoBehaviour
 
     void Start()
     {
-        // Zoek de speler in de scene. Zorg ervoor dat de speler het tag "Player" heeft.
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            playerTransform = player.transform;
-        }
-        else
-        {
-            Debug.LogError("MonsterSpawner: Geen speler gevonden met tag 'Player'. Zorg ervoor dat de speler correct is getagd.");
-        }
+        player = FindFirstObjectByType<Player>();
+        playerTransform = player.transform;
 
         mainCamera = Camera.main;
 
@@ -41,7 +34,14 @@ public class MonsterSpawner : MonoBehaviour
 
     private void Update()
     {
-        gameTime += Time.deltaTime;
+        if (!player.isDead)
+        {
+            gameTime += Time.deltaTime;
+        }
+        else
+        {
+            StopCoroutine(SpawnWavesCoroutine());
+        }
     }
 
     private IEnumerator SpawnWavesCoroutine()

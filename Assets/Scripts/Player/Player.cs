@@ -19,4 +19,6 @@ public class Player : MonoBehaviour
 
     [HideInInspector]
     public int currentHealth;
+    [HideInInspector]
+    public bool isDead = false;
 }

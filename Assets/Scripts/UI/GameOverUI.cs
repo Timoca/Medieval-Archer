@@ -10,15 +10,14 @@ public class GameOverUI : MonoBehaviour
     [SerializeField] Button restartButton;
     [SerializeField] Button mainMenuButton;
 
-    private PlayerHealth playerHealth;
     private GameUI gameUI;
     private BowController bowController;
-    private bool isDead = false;
+    private Player player;
     private bool scoreAdded = false;
 
     void Start()
     {
-        playerHealth = FindAnyObjectByType<PlayerHealth>();
+        player = FindAnyObjectByType<Player>();
         gameUI = FindAnyObjectByType<GameUI>();
         bowController = FindAnyObjectByType<BowController>();
     }
@@ -26,8 +25,7 @@ public class GameOverUI : MonoBehaviour
 
     void Update()
     {
-        isDead = playerHealth.isDead;
-        if (isDead && !scoreAdded)
+        if (player.isDead && !scoreAdded)
         {
             ScoreManager.Instance.AddScore(gameUI.score);
             scoreAdded = true; // Zet de vlag op true om dubbele toevoegingen te voorkomen
@@ -49,8 +47,8 @@ public class GameOverUI : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         // Zet de timescale op 1 zodat het spel hervat.
         Time.timeScale = 1;
-        playerHealth.GetComponent<PlayerMovement>().enabled = true;
-        playerHealth.GetComponent<PlayerShooting>().enabled = true;
+        player.GetComponent<PlayerMovement>().enabled = true;
+        player.GetComponent<PlayerShooting>().enabled = true;
         bowController.enabled = true;
 
         PlayUIClickSound();

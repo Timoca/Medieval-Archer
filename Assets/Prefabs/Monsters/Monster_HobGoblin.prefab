@@ -196,7 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterName: HobGoblin
   moveSpeed: 3.5
-  stoppingDistance: 0.7
+  stoppingDistance: 0.8
   hitsToKill: 2
   damage: 10
   score: 20

@@ -14,6 +14,7 @@ public class GameUI : MonoBehaviour
     private float gameTime;
     [HideInInspector]
     public int score = 0;
+    [HideInInspector]
 
     private void Start()
     {

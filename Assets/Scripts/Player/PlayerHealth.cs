@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [HideInInspector]
-    public bool isDead = false;
-
     private Player player;
     private BowController bowController;
     private GameOverUI gameOverUI;
@@ -26,7 +23,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage, string monster)
     {
-        if (isDead) return; // Voorkom verdere schade als de speler al dood is
+        if (player.isDead) return; // Voorkom verdere schade als de speler al dood is
 
         player.currentHealth -= damage;
 
@@ -62,7 +59,7 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator DieCoroutine()
     {
-        isDead = true;
+        player.isDead = true;
 
         // Speel de doodanimatie af
         if (animator != null)
@@ -79,10 +76,6 @@ public class PlayerHealth : MonoBehaviour
         // Wacht 2 seconden voordat de GameOverUI getoond wordt
         yield return new WaitForSeconds(2f);
 
-        // Zet de timescale op 0 zodat het spel gepauzeerd wordt.
-        //Time.timeScale = 0;
-
-
 
         // Laat de GameOverUI zien.
         if (gameOverUI != null)
@@ -92,6 +85,5 @@ public class PlayerHealth : MonoBehaviour
 
         // Speel de GameOver muziek
         AudioManager.Instance.PlayGameOverSound();
-        yield return new WaitForSeconds(5f);
     }
 }

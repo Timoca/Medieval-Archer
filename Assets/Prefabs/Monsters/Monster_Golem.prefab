@@ -196,7 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterName: Golem
   moveSpeed: 2
-  stoppingDistance: 0.7
+  stoppingDistance: 0.8
   hitsToKill: 3
   damage: 10
   score: 40

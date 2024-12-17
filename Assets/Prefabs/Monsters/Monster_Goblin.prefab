@@ -196,7 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterName: Goblin
   moveSpeed: 5
-  stoppingDistance: 0.7
+  stoppingDistance: 0.8
   hitsToKill: 1
   damage: 10
   score: 10

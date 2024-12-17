@@ -162,7 +162,7 @@ public class AudioManager : MonoBehaviour
     private IEnumerator PlayGameOverSoundCoroutine()
     {
         // demp de muziek
-        musicSource.volume = 0.2f;
+        musicSource.volume = 0f;
 
         // Speel het Game Over geluid af
         PlaySFX(gameOverClip);

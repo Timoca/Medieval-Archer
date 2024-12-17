@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PowerUpManager : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class PowerUpManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            // Abonneer op Scene Loaded Event
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
@@ -28,21 +32,28 @@ public class PowerUpManager : MonoBehaviour
         }
     }
 
-    void Start()
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        // Herinitialiseer de spawn area
         if (spawnAreaTransform != null)
         {
             spawnAreaCollider = spawnAreaTransform.GetComponent<BoxCollider2D>();
             if (spawnAreaCollider == null)
             {
                 Debug.LogError("PowerUpManager: SpawnArea heeft geen BoxCollider2D component.");
+                return;
             }
         }
         else
         {
             Debug.LogError("PowerUpManager: SpawnArea Transform is niet toegewezen.");
+            return;
         }
 
+        // Clear actieve power-up posities
+        activePowerUpPositions.Clear();
+
+        // Start het spawnen van power-ups
         StartCoroutine(SpawnInitialPowerUps());
     }
 
@@ -83,6 +94,7 @@ public class PowerUpManager : MonoBehaviour
         // Instantiate de PowerUpPickup prefab
         PowerUpPickup pickup = Instantiate(pickupPrefab, spawnPosition, Quaternion.identity);
         activePowerUpPositions.Add(spawnPosition);
+        Debug.Log("PowerUpManager: " + pickupPrefab.name + " gespawned op " + spawnPosition);
     }
 
 
